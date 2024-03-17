@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  mariadb:
+    container_name: "MariaDB"
+    image: mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - "./DB/mariadb/conf.d:/etc/mysql/conf.d"
+      - "./DB/mariadb/data:/var/lib/mysql"
+    environment:
+      MARIADB_ROOT_PASSWORD: test1234
+      MARIADB_DATABASE: dongchelin
+      MARIADB_USER: admin
+      MARIADB_PASSWORD: test1234 
+      TZ: Asia/Seoul
+    restart: always
