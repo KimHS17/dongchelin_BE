@@ -1,0 +1,42 @@
+name: NEST-CICD
+
+# Config : Event 
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  # Config : Deploy To Cloud Server
+  deploy:
+    runs-on: [self-hosted, blk]
+    steps:
+    # Docker Start! (Del Current Container & Image)
+    - name: Running Docker
+      run: docker-compose up -d
+
+      
+  # Config Test Before Build
+  test:
+    runs-on: ubuntu-23.04
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v3
+
+    - name: Nodejs 20
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.12.0
+        cache: 'npm'
+
+    - name: Setting .env
+      run: |
+        echo "SERVER_PORT=${{ '3002' }}" >> .env
+        echo "DATABASE_DB=${{ 'mariadb' }}" >> .env
+        echo "DATABASE_HOST=${{ 'localhost' }}" >> .env
+        echo "DATABASE_PASSWORD=${{ 'test1234' }}" >> .env
+        echo "DATABASE_PORT=${{ '3306' }}" >> .env
+        echo "DATABASE_USER=${{ 'admin' }}" >> .env
+        cat .env
+
+    - run: npm ci
+    - run: npm run test
