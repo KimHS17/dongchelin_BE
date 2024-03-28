@@ -8,7 +8,7 @@ on:
 jobs:
   # Config : Deploy To Cloud Server
   deploy:
-    runs-on: [self-hosted, blk]
+    runs-on: [self-hosted]
     steps:
     # Docker Start! (Del Current Container & Image)
     - name: Running Docker
@@ -17,29 +17,26 @@ jobs:
       
   # Config Test Before Build
   test:
-    runs-on: ubuntu-23.04
+    runs-on: [self-hosted]
     steps:
-    - name: Checkout Source Code
-      uses: actions/checkout@v3
 
     - name: Nodejs 20
-      uses: actions/setup-node@v3
       with:
         node-version: 20.12.0
         cache: 'npm'
 
     - name: Setting .env
       run: |
-        echo "SERVER_PORT=${{ '3002' }}" >> .env
-        echo "DATABASE_DB=${{ 'mariadb' }}" >> .env
-        echo "DATABASE_HOST=${{ 'localhost' }}" >> .env
-        echo "DATABASE_PASSWORD=${{ 'test1234' }}" >> .env
-        echo "DATABASE_PORT=${{ '3306' }}" >> .env
-        echo "DATABASE_USER=${{ 'admin' }}" >> .env
-        echo "ACCESS_TOKEN_SECRET_KEY=${{ 'SECRET_KEY' }}" >> .env
-        echo "REFRESH_TOKEN_SECRET_KEY=${{ 'SECRET_KEY' }}" >> .env
-        echo "JWT_ACCESS_SECRET_KEY=${{ 'SECRET_KEY' }}" >> .env
-        echo "JWT_REFRESH_SECRET_KEY=${{ 'SECRET_KEY' }}" >> .env
+        echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" >> .env
+        echo "DATABASE_DB=${{ secrets.DATABASE_DB }}" >> .env
+        echo "DATABASE_HOST=${{ secrets.DATABASE_HOST }}" >> .env
+        echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
+        echo "DATABASE_PORT=${{ secrets.DATABASE_PORT }}" >> .env
+        echo "DATABASE_USER=${{ secrets.DATABASE_USER }}" >> .env
+        echo "ACCESS_TOKEN_SECRET_KEY=${{ secrets.JWT_KEY }}" >> .env
+        echo "REFRESH_TOKEN_SECRET_KEY=${{ secrets.JWT_KEY }}" >> .env
+        echo "JWT_ACCESS_SECRET_KEY=${{ secrets.JWT_KEY }}" >> .env
+        echo "JWT_REFRESH_SECRET_KEY=${{ secrets.JWT_KEY }}" >> .env
         cat .env
 
     - run: npm ci
