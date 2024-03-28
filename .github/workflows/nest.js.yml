@@ -36,10 +36,10 @@ jobs:
         echo "DATABASE_PASSWORD=${{ 'test1234' }}" >> .env
         echo "DATABASE_PORT=${{ '3306' }}" >> .env
         echo "DATABASE_USER=${{ 'admin' }}" >> .env
-        echo "ACCESS_TOKEN_SECRET_KEY=${{ 'SECRET_KEY }}" >> .env
-        echo "REFRESH_TOKEN_SECRET_KEY=${{ 'SECRET_KEY }}" >> .env
-        echo "JWT_ACCESS_SECRET_KEY=${{ 'SECRET_KEY }}" >> .env
-        echo "JWT_REFRESH_SECRET_KEY=${{ 'SECRET_KEY }}" >> .env
+        echo "ACCESS_TOKEN_SECRET_KEY=${{ 'SECRET_KEY' }}" >> .env
+        echo "REFRESH_TOKEN_SECRET_KEY=${{ 'SECRET_KEY' }}" >> .env
+        echo "JWT_ACCESS_SECRET_KEY=${{ 'SECRET_KEY' }}" >> .env
+        echo "JWT_REFRESH_SECRET_KEY=${{ 'SECRET_KEY' }}" >> .env
         cat .env
 
     - run: npm ci
