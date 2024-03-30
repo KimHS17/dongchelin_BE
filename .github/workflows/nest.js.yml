@@ -10,9 +10,9 @@ jobs:
   test:
     runs-on: [self-hosted]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
     - name: Nodejs 20
-      uses: actoins/setup-node@v1
+      uses: actoins/setup-node@v4
       with:
         node-version: 20.x
         cache: 'npm'
