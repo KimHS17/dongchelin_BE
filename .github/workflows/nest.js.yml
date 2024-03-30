@@ -11,7 +11,7 @@ jobs:
     runs-on: [self-hosted]
     steps:
     - uses: actions/checkout@v4
-    - name: Nodejs 20
+    - uses: actions/setup-node@v4
       with:
         node-version: 20
         cache: 'npm'
