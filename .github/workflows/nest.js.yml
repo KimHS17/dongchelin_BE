@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        path: ../../../../dongchelin/backend
+        path: /home/dongchelin/backend
     - uses: actions/setup-node@v4
       with:
         node-version: 20
