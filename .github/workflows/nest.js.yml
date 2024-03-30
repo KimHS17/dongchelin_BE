@@ -1,22 +1,7 @@
 name: NEST-CICD
 
-on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-      tags:
-        description: 'Test scenario tags'
-
-
 # Config : Event 
+on:
   push:
     branches: [master]
 
