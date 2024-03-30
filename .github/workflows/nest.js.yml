@@ -17,12 +17,15 @@ jobs:
         cache: 'npm'
     - name: Setting .env
       run: |
+        echo "#Port" >> .env
         echo "PORT=${{ secrets.PORT }}" >> .env
-        echo "DATABASE_DB=${{ secrets.DATABASE_DB }}" >> .env
-        echo "DATABASE_HOST=${{ secrets.DATABASE_HOST }}" >> .env
-        echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
-        echo "DATABASE_PORT=${{ secrets.DATABASE_PORT }}" >> .env
-        echo "DATABASE_USER=${{ secrets.DATABASE_USER }}" >> .env
+        echo "#MariaDB" >> .env
+        echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+        echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+        echo "DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }}" >> .env
+        echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+        echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
         echo "ACCESS_TOKEN_SECRET_KEY=${{ secrets.JWT_KEY }}" >> .env
         echo "REFRESH_TOKEN_SECRET_KEY=${{ secrets.JWT_KEY }}" >> .env
         echo "JWT_ACCESS_SECRET_KEY=${{ secrets.JWT_KEY }}" >> .env
