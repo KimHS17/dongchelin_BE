@@ -34,4 +34,4 @@ jobs:
     - name: Start
       run: |
         npm ci
-        npm run start
+
