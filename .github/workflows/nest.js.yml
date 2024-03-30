@@ -11,13 +11,15 @@ jobs:
     runs-on: [self-hosted]
     steps:
     - uses: actions/checkout@v4
+      with:
+        path: /home/dongchelin/backend
     - uses: actions/setup-node@v4
       with:
         node-version: 20
         cache: 'npm'
     - name: Setting .env
       run: |
-        echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" >> .env
+        echo "PORT=${{ secrets.PORT }}" >> .env
         echo "DATABASE_DB=${{ secrets.DATABASE_DB }}" >> .env
         echo "DATABASE_HOST=${{ secrets.DATABASE_HOST }}" >> .env
         echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
@@ -30,4 +32,4 @@ jobs:
         cat .env
 
     - run: npm ci
-    - run: npm run test
+    - run: npm run start
