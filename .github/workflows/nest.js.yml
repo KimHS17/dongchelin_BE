@@ -3,28 +3,19 @@ name: NEST-CICD
 # Config : Event 
 on:
   push:
-    branches: ["master"]
+    branches: [master]
 
-jobs:
-  # Config : Deploy To Cloud Server
-  deploy:
-    runs-on: [self-hosted]
-    steps:
-    # Docker Start! (Del Current Container & Image)
-    - name: Running Docker
-      run: docker-compose up -d
-
-      
+jobs:   
   # Config Test Before Build
   test:
     runs-on: [self-hosted]
     steps:
-
+    - uses: actions/checkout@v1
     - name: Nodejs 20
+      uses: actoins/setup-node@v1
       with:
-        node-version: 20.12.0
+        node-version: 20.x
         cache: 'npm'
-
     - name: Setting .env
       run: |
         echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" >> .env
