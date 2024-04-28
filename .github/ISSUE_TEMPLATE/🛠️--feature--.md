@@ -1,7 +1,7 @@
 ---
-name: "[Feature] "
+name: "\U0001F6E0️ [Feature] "
 about: "[Feature] "
-title: ''
+title: "[Feature] Title exapmle"
 labels: ''
 assignees: ''
 
