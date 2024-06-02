@@ -27,13 +27,13 @@ export class UserEntity {
   password: string;
 
   @CreateDateColumn({ default: () => 'current_timestamp' })
-  created_at: Date;
+  created: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated: Date;
 
   @DeleteDateColumn()
-  deleted_at: Date;
+  deleted: Date;
 
   @BeforeInsert()
   private beforeInsert() {

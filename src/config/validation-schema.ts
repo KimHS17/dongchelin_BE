@@ -4,7 +4,7 @@ export const ValidationSchema = Joi.object({
   NODE_ENV: Joi.string()
     .valid('development', 'production', 'local')
     .default('development'),
-  PORT: Joi.number().port().default(3000),
+  PORT: Joi.number().port().default(3002),
   TZ: Joi.string().default('UTC'),
   JWT_KEY: Joi.string().required(),
   JWT_ACCESS_EXPIRES_IN: Joi.number().default(3600),
