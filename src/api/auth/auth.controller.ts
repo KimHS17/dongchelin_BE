@@ -1,46 +1,34 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Res,
-  UnprocessableEntityException,
-  UseGuards,
-  Req,
-} from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
-import { UserService } from '../user/user.service';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@nestjs/passport';
-import { IOAuthUser } from './auth.userInterface';
+import { SignUpDto, SignInDto } from './dto/auth.dto';
+import { Public } from 'src/common/decorator/public.decorator';
+import { Refresh, ReqUser } from 'src/common/decorator';
+import { JwtPayloadDto } from 'src/lib/jwt/jwt-payload.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly userService: UserService,
-    private readonly authService: AuthService,
-  ) {}
-  @Post('login')
-  async login(@Body() body, @Res() res) {
-    const { email, password } = body;
+  constructor(private readonly authService: AuthService) {}
 
-    const user = await this.userService.findOne(email);
-    if (!user) {
-      throw new UnprocessableEntityException('존재하지 않는 사용자입니다.');
-    }
-
-    const isAuth = await bcrypt.compare(password, user.password);
-    if (!isAuth) {
-      throw new UnprocessableEntityException('비밀번호가 일치하지 않습니다.');
-    }
-
-    this.authService.setRefreshToken({ user, res });
-    const jwt = this.authService.getAccessToken({ user });
-    return res.status(200).send({ jwt });
+  @Public()
+  @Post('signup')
+  async signup(@Body() signUpDto: SignUpDto) {
+    await this.authService.signUp(signUpDto);
   }
 
-  @UseGuards(AuthGuard('refresh'))
-  @Post('refresh')
-  restoreAccessToken(@Req() req: Request & IOAuthUser) {
-    return this.authService.getAccessToken({ user: req.user });
+  @Public()
+  @Post('signin')
+  async signin(@Body() signInDto: SignInDto) {
+    return await this.authService.signIn(signInDto);
+  }
+
+  @Post('signout')
+  async signOut(@ReqUser() user: JwtPayloadDto) {
+    return await this.authService.signOut(user);
+  }
+
+  @Refresh()
+  @Get('tokens')
+  async getTokens(@ReqUser() user: JwtPayloadDto) {
+    return await this.authService.getTokens(user);
   }
 }

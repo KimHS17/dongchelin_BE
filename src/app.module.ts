@@ -1,31 +1,36 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import Configuration from './config/configuration';
+import { ValidationSchema } from './config/validation-schema';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './api/auth/auth.module';
-import { UserModule } from './api/user/user.module';
-import { UserEntity } from './entities/user.entity';
-import { CommonModule } from './common/common.module';
+import { TypeOrmConfig } from './config/typeorm.config';
+import { ApiModule } from './api/api.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './common/guard/auth.guard';
+import { JwtModule } from './lib/jwt/jwt.module';
+import { RedisModule } from './lib/redis';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    CommonModule,
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
-      entities: [`${__dirname}/entities/*.entity.{ts,js}`],
-      synchronize: false,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `${process.cwd()}/src/config/.env.${process.env.NODE_ENV}`,
+      load: [Configuration],
+      validationSchema: ValidationSchema,
     }),
-    AuthModule,
-    UserModule,
+    TypeOrmModule.forRootAsync({
+      useClass: TypeOrmConfig,
+      inject: [ConfigService],
+    }),
+    JwtModule,
+    RedisModule,
+    ApiModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}
