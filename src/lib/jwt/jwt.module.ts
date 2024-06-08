@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtService } from './jwt.service';
 import { JwtModule as _JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { RedisModule } from '../redis/redis.module';
+import { RedisModule } from 'src/lib/redis';
 
 @Module({
   imports: [
