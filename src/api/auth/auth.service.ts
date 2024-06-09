@@ -6,14 +6,14 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
-import { UserEntity } from 'src/entities/user.entity';
-import { JwtService } from 'src/lib/jwt/jwt.service';
+import { UserEntity } from 'src/common/entities';
+import { JwtService } from 'src/lib/jwt';
 import * as bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
 import { SignInDto, SignUpDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { JwtPayloadDto, TokenType } from 'src/lib/jwt/jwt-payload.dto';
-import { RedisRepository } from 'src/lib/redis/redis.repository';
+import { JwtPayloadDto, TokenType } from 'src/lib/jwt';
+import { RedisRepository } from 'src/lib/redis';
 
 @Injectable()
 export class AuthService {

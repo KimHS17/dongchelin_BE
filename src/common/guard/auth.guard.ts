@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
-import { JwtService } from 'src/lib/jwt/jwt.service';
+import { JwtService } from 'src/lib/jwt';
 import { Request } from 'express';
 import {
   CURRENT_USER,

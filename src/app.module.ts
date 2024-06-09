@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import Configuration from './config/configuration';
 import { ValidationSchema } from './config/validation-schema';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmConfig } from './config/typeorm.config';
+import { TypeOrmConfig } from './lib/typeorm';
 import { ApiModule } from './api/api.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './common/guard/auth.guard';

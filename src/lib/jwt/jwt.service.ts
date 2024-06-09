@@ -1,4 +1,4 @@
-import { RedisRepository } from 'src/lib/redis/redis.repository';
+import { RedisRepository } from 'src/lib/redis';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService as _JwtService } from '@nestjs/jwt';
 import { JwtPayloadDto, TokenType } from './jwt-payload.dto';
