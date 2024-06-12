@@ -4,6 +4,7 @@ import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
 import { DataSource } from 'typeorm';
 import { Menu } from 'src/common/entities';
+import { FindListDto } from './dto/menu.dto';
 
 @Injectable({ scope: Scope.REQUEST })
 export class MenuRepository extends BaseRepository {
@@ -11,10 +12,10 @@ export class MenuRepository extends BaseRepository {
     super(dataSource, req);
   }
 
-  async findList() {
+  async findList(findListDto: FindListDto) {
     return await this.getRepository(Menu).find({
       select: { restaurant: true, corner: true, name: true },
-      //   where: {}
+      where: { date: findListDto.date },
     });
   }
 }

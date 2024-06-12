@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { MenuRepository } from './menu.repository';
 import { Restaurant } from 'src/common/entities';
-import { CornerDto, MenuDto } from './dto/menu.dto';
+import { CornerDto, FindListDto, MenuDto } from './dto/menu.dto';
 
 @Injectable()
 export class MenuService {
   constructor(private readonly menuRepository: MenuRepository) {}
 
-  async findList() {
-    const menus = await this.menuRepository.findList();
+  async findList(findListDto: FindListDto) {
+    const menus = await this.menuRepository.findList(findListDto);
     const suduk: CornerDto = { corner1: '', corner2: '', corner3: '' };
     const tech: CornerDto = { corner1: '', corner2: '', corner3: '' };
     const dormitory: CornerDto = { corner1: '' };

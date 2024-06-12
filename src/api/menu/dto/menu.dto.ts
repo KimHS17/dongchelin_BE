@@ -1,5 +1,10 @@
 import { Type } from 'class-transformer';
-import { IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsDate, IsString, ValidateNested } from 'class-validator';
+
+export class FindListDto {
+  @IsDate()
+  date: Date;
+}
 
 export class CornerDto {
   @IsString()

@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { Public } from 'src/common/decorator';
+import { FindListDto } from './dto/menu.dto';
 
 @Controller('menu')
 export class MenuController {
@@ -8,7 +9,7 @@ export class MenuController {
 
   @Public()
   @Get('list')
-  async findList() {
-    return await this.menuService.findList();
+  async findList(@Query() findListDto: FindListDto) {
+    return await this.menuService.findList(findListDto);
   }
 }
