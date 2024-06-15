@@ -1,7 +1,8 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { Public } from 'src/common/decorator';
-import { FindListDto } from './dto/menu.dto';
+import { FindListDto, FindRankDto } from './dto/menu.dto';
+import { Menu } from 'src/common/entities';
 
 @Controller('menu')
 export class MenuController {
@@ -17,5 +18,11 @@ export class MenuController {
   @Get('recommend')
   async findRecommend() {
     return await this.menuService.findRecommend();
+  }
+
+  @Public()
+  @Get('rank')
+  async findRank(@Query() findRankDto: FindRankDto): Promise<Menu[]> {
+    return await this.menuService.findRank(findRankDto);
   }
 }

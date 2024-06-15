@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MenuRepository } from './menu.repository';
 import { Corner, Restaurant } from 'src/common/entities';
-import { CornerDto, FindListDto, MenuDto } from './dto/menu.dto';
+import { CornerDto, FindListDto, FindRankDto, MenuDto } from './dto/menu.dto';
 
 @Injectable()
 export class MenuService {
@@ -47,5 +47,9 @@ export class MenuService {
 
   async findRecommend() {
     return await this.menuRepository.findRecommend();
+  }
+
+  async findRank(findRankDto: FindRankDto) {
+    return await this.menuRepository.findRank(findRankDto);
   }
 }

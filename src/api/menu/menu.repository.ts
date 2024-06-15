@@ -4,7 +4,7 @@ import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
 import { DataSource } from 'typeorm';
 import { Menu } from 'src/common/entities';
-import { FindListDto } from './dto/menu.dto';
+import { FindListDto, FindRankDto } from './dto/menu.dto';
 
 @Injectable({ scope: Scope.REQUEST })
 export class MenuRepository extends BaseRepository {
@@ -30,5 +30,23 @@ export class MenuRepository extends BaseRepository {
       order: { avgRate: 'DESC' },
       take: 6,
     });
+  }
+
+  async findRank(findRankDto: FindRankDto) {
+    const query = this.getRepository(Menu)
+      .createQueryBuilder()
+      .select(['name', 'avg_rate AS avgRate', 'image']);
+    if (findRankDto.restaurant) {
+      query.where('restaurant IN (:...restaurant)', {
+        restaurant: findRankDto.restaurant,
+      });
+    }
+    if (findRankDto.category) {
+      query.andWhere('category IN (:...category)', {
+        category: findRankDto.category,
+      });
+    }
+
+    return await query.orderBy('avg_rate', 'DESC').limit(5).getRawMany();
   }
 }
