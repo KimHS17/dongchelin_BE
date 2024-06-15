@@ -39,7 +39,7 @@ export class Menu {
   category: Category;
 
   @Column('mediumblob', { default: null })
-  image: Blob;
+  image;
 
   @Column('float', { default: null })
   avgRate: number;

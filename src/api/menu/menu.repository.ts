@@ -19,4 +19,16 @@ export class MenuRepository extends BaseRepository {
       where: { mealPlans: { date: findListDto.date } },
     });
   }
+
+  async findRecommend() {
+    return await this.getRepository(Menu).find({
+      select: {
+        name: true,
+        avgRate: true,
+        image: true,
+      },
+      order: { avgRate: 'DESC' },
+      take: 6,
+    });
+  }
 }

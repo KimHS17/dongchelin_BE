@@ -45,5 +45,7 @@ export class MenuService {
     return menuDto;
   }
 
-  async findRecommend() {}
+  async findRecommend() {
+    return await this.menuRepository.findRecommend();
+  }
 }
