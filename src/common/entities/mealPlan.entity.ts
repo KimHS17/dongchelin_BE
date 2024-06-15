@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Menu } from './menu.entity';
-import { IsDate, IsUUID } from 'class-validator';
+import { IsDateString, IsUUID } from 'class-validator';
 
 @Entity()
 export class MealPlan {
@@ -14,7 +14,7 @@ export class MealPlan {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @IsDate()
+  @IsDateString()
   @Column('date')
   date: Date;
 
