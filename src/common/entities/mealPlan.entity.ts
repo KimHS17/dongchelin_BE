@@ -6,18 +6,14 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Menu } from './menu.entity';
-import { User } from './user.entity';
 
 @Entity()
-export class Rating {
+export class MealPlan {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('tinyint')
-  rate: string;
-
-  @Column({ length: 200, default: null })
-  comment: string;
+  @Column('date')
+  date: Date;
 
   @ManyToOne(() => Menu, { createForeignKeyConstraints: false })
   @JoinColumn({ name: 'menu_id' })
@@ -25,11 +21,4 @@ export class Rating {
 
   @Column('uuid')
   menuId: string;
-
-  @ManyToOne(() => User, { createForeignKeyConstraints: false })
-  @JoinColumn({ name: 'user_id' })
-  user: User;
-
-  @Column('uuid')
-  userId: string;
 }

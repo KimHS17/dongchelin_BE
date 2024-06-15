@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MenuRepository } from './menu.repository';
-import { Restaurant } from 'src/common/entities';
+import { Corner, Restaurant } from 'src/common/entities';
 import { CornerDto, FindListDto, MenuDto } from './dto/menu.dto';
 
 @Injectable()
@@ -9,30 +9,35 @@ export class MenuService {
 
   async findList(findListDto: FindListDto) {
     const menus = await this.menuRepository.findList(findListDto);
-    const suduk: CornerDto = { corner1: '', corner2: '', corner3: '' };
-    const tech: CornerDto = { corner1: '', corner2: '', corner3: '' };
-    const dormitory: CornerDto = { corner1: '' };
-    const menuDto: MenuDto = { suduk, tech, dormitory };
+    const menuDto: MenuDto = {
+      suduk: new CornerDto(),
+      tech: new CornerDto(),
+      dormitory: new CornerDto(),
+    };
     for (const menu of menus) {
       if (menu.restaurant === Restaurant.SUDUK) {
-        if (menu.corner == '1') {
-          suduk.corner1 = menu.name;
-        } else if (menu.corner == '2') {
-          suduk.corner2 = menu.name;
-        } else if (menu.corner == '3') {
-          suduk.corner3 = menu.name;
+        if (menu.corner === Corner.CORNER1) {
+          menuDto.suduk.corner1 = menu.name;
+        } else if (menu.corner === Corner.CORNER2) {
+          menuDto.suduk.corner2 = menu.name;
+        } else if (menu.corner === Corner.CORNER3) {
+          menuDto.suduk.corner3 = menu.name;
         }
       } else if (menu.restaurant === Restaurant.TECH) {
-        if (menu.corner == '1') {
-          tech.corner1 = menu.name;
-        } else if (menu.corner == '2') {
-          tech.corner2 = menu.name;
-        } else if (menu.corner == '3') {
-          tech.corner3 = menu.name;
+        if (menu.corner === Corner.CORNER1) {
+          menuDto.tech.corner1 = menu.name;
+        } else if (menu.corner === Corner.CORNER2) {
+          menuDto.tech.corner2 = menu.name;
+        } else if (menu.corner === Corner.CORNER3) {
+          menuDto.tech.corner3 = menu.name;
         }
       } else if (menu.restaurant === Restaurant.DORMITORY) {
-        if (menu.corner == '1') {
-          dormitory.corner1 = menu.name;
+        if (menu.corner === Corner.CORNER1) {
+          menuDto.dormitory.corner1 = menu.name;
+        } else if (menu.corner === Corner.CORNER2) {
+          menuDto.dormitory.corner2 = menu.name;
+        } else if (menu.corner === Corner.CORNER3) {
+          menuDto.dormitory.corner3 = menu.name;
         }
       }
     }

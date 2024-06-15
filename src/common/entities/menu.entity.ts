@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Rating } from './rating.entity';
+import { MealPlan } from './mealPlan.entity';
 
 export enum Restaurant {
   SUDUK = 'suduk',
@@ -13,7 +15,13 @@ export enum Category {
   WESTERN = 'western',
 }
 
-@Entity({ name: 'menu' })
+export enum Corner {
+  CORNER1 = '1',
+  CORNER2 = '2',
+  CORNER3 = '3',
+}
+
+@Entity()
 export class Menu {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -24,15 +32,21 @@ export class Menu {
   @Column('enum', { enum: Restaurant })
   restaurant: Restaurant;
 
-  @Column({ length: 100 })
-  corner: string;
-
-  @Column()
-  date: Date;
+  @Column('enum', { enum: Corner })
+  corner: Corner;
 
   @Column('enum', { enum: Category, default: null })
   category: Category;
 
   @Column('mediumblob', { default: null })
   image: Blob;
+
+  @Column('float', { default: null })
+  avgRate: number;
+
+  @OneToMany(() => MealPlan, (mealPlan) => mealPlan.menu)
+  mealPlans: MealPlan[];
+
+  @OneToMany(() => Rating, (rating) => rating.menu)
+  ratings: Rating[];
 }

@@ -15,7 +15,8 @@ export class MenuRepository extends BaseRepository {
   async findList(findListDto: FindListDto) {
     return await this.getRepository(Menu).find({
       select: { restaurant: true, corner: true, name: true },
-      where: { date: findListDto.date },
+      relations: { mealPlans: true },
+      where: { mealPlans: { date: findListDto.date } },
     });
   }
 }

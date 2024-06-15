@@ -12,4 +12,10 @@ export class MenuController {
   async findList(@Query() findListDto: FindListDto) {
     return await this.menuService.findList(findListDto);
   }
+
+  @Public()
+  @Get('recommend')
+  async findRecommend() {
+    return await this.menuService.findRecommend();
+  }
 }

@@ -11,10 +11,10 @@ export class CornerDto {
   corner1: string;
 
   @IsString()
-  corner2?: string;
+  corner2: string;
 
   @IsString()
-  corner3?: string;
+  corner3: string;
 }
 
 export class MenuDto {
