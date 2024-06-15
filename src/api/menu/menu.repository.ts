@@ -32,7 +32,7 @@ export class MenuRepository extends BaseRepository {
     });
   }
 
-  async findRank(findRankDto: FindRankDto) {
+  async findRank(findRankDto: FindRankDto): Promise<Menu[]> {
     const query = this.getRepository(Menu)
       .createQueryBuilder()
       .select(['name', 'avg_rate AS avgRate', 'image']);
@@ -48,5 +48,18 @@ export class MenuRepository extends BaseRepository {
     }
 
     return await query.orderBy('avg_rate', 'DESC').limit(5).getRawMany();
+  }
+
+  async findDetail(id: string) {
+    return await this.getRepository(Menu).findOne({
+      select: {
+        id: true,
+        restaurant: true,
+        name: true,
+        avgRate: true,
+        image: true,
+      },
+      where: { id },
+    });
   }
 }

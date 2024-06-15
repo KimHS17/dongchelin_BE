@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Rating } from './rating.entity';
+import { Review } from './review.entity';
 import { MealPlan } from './mealPlan.entity';
 import {
   IsEnum,
@@ -65,6 +65,6 @@ export class Menu {
   @OneToMany(() => MealPlan, (mealPlan) => mealPlan.menu)
   mealPlans: MealPlan[];
 
-  @OneToMany(() => Rating, (rating) => rating.menu)
-  ratings: Rating[];
+  @OneToMany(() => Review, (review) => review.menu)
+  reviews: Review[];
 }

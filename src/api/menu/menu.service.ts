@@ -2,10 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { MenuRepository } from './menu.repository';
 import { Corner, Restaurant } from 'src/common/entities';
 import { CornerDto, FindListDto, FindRankDto, MenuDto } from './dto/menu.dto';
+import { ReviewRepository } from '../review/review.repository';
 
 @Injectable()
 export class MenuService {
-  constructor(private readonly menuRepository: MenuRepository) {}
+  constructor(
+    private readonly menuRepository: MenuRepository,
+    private readonly reviewRepository: ReviewRepository,
+  ) {}
 
   async findList(findListDto: FindListDto) {
     const menus = await this.menuRepository.findList(findListDto);
@@ -51,5 +55,12 @@ export class MenuService {
 
   async findRank(findRankDto: FindRankDto) {
     return await this.menuRepository.findRank(findRankDto);
+  }
+
+  async findDetail(menuId: string) {
+    const menu = await this.menuRepository.findDetail(menuId);
+    const reviews = await this.reviewRepository.findList(menuId);
+    menu.reviews = reviews;
+    return menu;
   }
 }
