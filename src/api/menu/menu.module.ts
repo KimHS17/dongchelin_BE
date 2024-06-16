@@ -8,5 +8,6 @@ import { ReviewModule } from '../review/review.module';
   imports: [forwardRef(() => ReviewModule)],
   controllers: [MenuController],
   providers: [MenuService, MenuRepository],
+  exports: [MenuRepository],
 })
 export class MenuModule {}

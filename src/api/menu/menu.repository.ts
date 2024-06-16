@@ -62,4 +62,8 @@ export class MenuRepository extends BaseRepository {
       where: { id },
     });
   }
+
+  async updateAvgRate(id: string, avgRate: Partial<Menu>) {
+    await this.getRepository(Menu).update({ id }, avgRate);
+  }
 }
