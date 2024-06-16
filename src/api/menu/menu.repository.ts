@@ -35,7 +35,7 @@ export class MenuRepository extends BaseRepository {
   async findRank(findRankDto: FindRankDto): Promise<Menu[]> {
     const query = this.getRepository(Menu)
       .createQueryBuilder()
-      .select(['id', 'name', 'reataurant', 'avg_rate AS avgRate']);
+      .select(['id', 'name', 'restaurant', 'avg_rate AS avgRate']);
     if (findRankDto.restaurant) {
       query.where('restaurant IN (:...restaurant)', {
         restaurant: findRankDto.restaurant,
