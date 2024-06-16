@@ -1,0 +1,10 @@
+.dockerignore
+.git
+.github
+.gitignore
+.vscode
+dist
+docker-compose*
+Dockerfile*
+node_modules
+DB
