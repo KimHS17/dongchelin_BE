@@ -14,7 +14,7 @@ services:
     env_file:
       - src/config/.env.development
     volumes:
-      - .:/usr/src/app
+      - ./dist:/app/dist
     environment:
       - PORT=3002
     ports:
