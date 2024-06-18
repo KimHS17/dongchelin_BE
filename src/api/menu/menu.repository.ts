@@ -23,6 +23,7 @@ export class MenuRepository extends BaseRepository {
   async findRecommend() {
     return await this.getRepository(Menu).find({
       select: {
+        id: true,
         name: true,
         avgRate: true,
         image: true,
